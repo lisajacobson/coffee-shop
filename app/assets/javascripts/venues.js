@@ -18,22 +18,24 @@
 		//categoryId coffee shops
 
 $('button').on('click', function(event){
-
+	event.preventDefault();
+	var list = $('.list');
+	list.show();
+	
 	venueUrl = 'https://api.foursquare.com/v2/venues/search?client_id=HEF1ZRBBHNI532L2WNTOA0TMDDXL4RLG4E1ROV0M5V3SKJIY&client_secret=RFF1AAYFPZTHPC24OO0CKA3DN45P4J4LKVYCUHFFN4Z5NZYB&ll=' + lat + ',' + lon + '&limit=10&intent=browse&categoryId=4bf58dd8d48988d1e0931735&radius=60000&v=20141130&m=foursquare'
 	$.ajax({
 		type: 'GET',
 		url: venueUrl,
 		success: function(result){
-			console.log("woohoo!")
+			console.log("yay")
 		}
 	});
 
-	var shops_list = $('.list').hide();
-	$()
+	//var list = $('.list');
+	//name, address are Foursquare API venue response fields. Need to figure out how to access them.
+	list.html('<li>Name:' + name + 'at' + address + '</li>');
+
 })
-
-
-
 
 //test this out w/NYC location
 	//https://api.foursquare.com/v2/venues/search?client_id=HEF1ZRBBHNI532L2WNTOA0TMDDXL4RLG4E1ROV0M5V3SKJIY&client_secret=RFF1AAYFPZTHPC24OO0CKA3DN45P4J4LKVYCUHFFN4Z5NZYB&ll=40.7,-74&limit=10&intent=browse&categoryId=4bf58dd8d48988d1e0931735&radius=40000&v=20141130&m=foursquare
