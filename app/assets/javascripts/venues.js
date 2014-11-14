@@ -17,6 +17,7 @@ $(document).ready(function(){
 	$('form').on('submit', function(event){
 		event.preventDefault();
 		// alert("awesome");
+
 		var lat = $('.lat').val();
 		var lon = $('.lon').val();
 		var list = $('.list');
@@ -25,7 +26,6 @@ $(document).ready(function(){
 		// venueUrl = 'https://api.foursquare.com/v2/venues/explore?ll=' + lat + ',' + lon + '&section=coffee&client_id=' +ENV['client_id'] + '&client_secret=' +ENV['client_secret'] + '&v=20141130'; 
 
 		venueUrl = 'https://api.foursquare.com/v2/venues/explore?ll='+ lat + ',' + lon +'&section=coffee&client_id=HEF1ZRBBHNI532L2WNTOA0TMDDXL4RLG4E1ROV0M5V3SKJIY&client_secret=RFF1AAYFPZTHPC24OO0CKA3DN45P4J4LKVYCUHFFN4Z5NZYB&v=20141019'
-
 		
 		console.log(venueUrl);
 		$.ajax({
@@ -33,10 +33,15 @@ $(document).ready(function(){
 			url: venueUrl,
 			dataType: "json",
 			success: function(result){
-		
-				console.log(responseData = result["response"]);
+				
+				// console.log(response.response);
+				var results = result.response.groups[0].items;
+				console.log(result);
 
-				list.html('<li>' + result["name"] + ' at ' + result["address"] + '</li>');
+				for (var i = 0; i < 10; i++) {
+					list.append('<li>' + results[i].venue.name + '@' + results[i].venue.location.address + '</li>');
+				};
+				
 			}
 		});
 
@@ -52,7 +57,7 @@ $(document).ready(function(){
 //IT WORKS!
 
 //this url returns all resulting venues for query "coffee" in the city (default foursquare vicinity) 40.7, -74 (lat, lon) or Brooklyn Bridge Park Greenway Brooklyn, NY 11201
-//'https://api.foursquare.com/v2/venues/search?client_id=HEF1ZRBBHNI532L2WNTOA0TMDDXL4RLG4E1ROV0M5V3SKJIY&client_secret=RFF1AAYFPZTHPC24OO0CKA3DN45P4J4LKVYCUHFFN4Z5NZYB&ll=40.7,-74&query=coffee&v=20141130&m=foursquare'
+//'https://api.foursquare.com/v2/venues/search?client_id=HEF1ZRBBHNI532L2WNTOA0TMDDXL4RLG4E1ROV0M5V3SKJIY&client_secret=RFF1AAYFPZTHPC24OO0CKA3DN45P4J4LKVYCUHFFN4Z5NZYB&ll=38.89,-77.03&query=coffee&v=20141130&m=foursquare'
 
 
   //cvenues/categories
